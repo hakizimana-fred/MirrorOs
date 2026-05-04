@@ -9,6 +9,7 @@ import Timeline from "@/app/components/Timeline";
 import ComparisonView from "@/app/components/ComparisonView";
 import EventFeed from "@/app/components/EventFeed";
 import CliHistory from "@/app/components/CliHistory";
+import PulseBar from "@/app/components/PulseBar";
 
 export default function Home() {
   const { requestHistory, requestSimulation, requestReplay, requestCliHistory } = useWebSocket();
@@ -70,6 +71,9 @@ export default function Home() {
         onRequestHistory={requestHistory}
         onRequestReplay={requestReplay}
       />
+
+      {/* Always-visible ambient pulse bar */}
+      <PulseBar />
     </div>
   );
 }
