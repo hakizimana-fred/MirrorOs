@@ -10,6 +10,8 @@ import type {
   GraphNode,
   GraphEdge,
   ReplayFrame,
+  CliHistory,
+  CliIntelligence,
 } from "@/app/types/system";
 
 const NODE_COLORS = {
@@ -92,6 +94,9 @@ interface SystemStore {
   fsScan: unknown[];
   graphData: GraphData;
   comparisonGraphData: GraphData;
+  cliHistory: CliHistory | null;
+  cliIntelligence: CliIntelligence | null;
+  cliLoading: boolean;
 
   setConnected: (v: boolean) => void;
   setMode: (m: AppMode) => void;
@@ -103,6 +108,8 @@ interface SystemStore {
   setReplayIndex: (i: number) => void;
   setSimulationOs: (os: OSType) => void;
   setFsScan: (files: unknown[]) => void;
+  setCliData: (msg: { history: CliHistory; intelligence: CliIntelligence }) => void;
+  setCliLoading: (v: boolean) => void;
 }
 
 export const useSystemStore = create<SystemStore>((set) => ({
@@ -119,6 +126,9 @@ export const useSystemStore = create<SystemStore>((set) => ({
   fsScan: [],
   graphData: { nodes: [], edges: [] },
   comparisonGraphData: { nodes: [], edges: [] },
+  cliHistory: null,
+  cliIntelligence: null,
+  cliLoading: false,
 
   setConnected: (connected) => set({ connected }),
 
@@ -160,4 +170,9 @@ export const useSystemStore = create<SystemStore>((set) => ({
   setSimulationOs: (simulationOs) => set({ simulationOs }),
 
   setFsScan: (fsScan) => set({ fsScan }),
+
+  setCliData: ({ history, intelligence }) =>
+    set({ cliHistory: history, cliIntelligence: intelligence, cliLoading: false }),
+
+  setCliLoading: (cliLoading) => set({ cliLoading }),
 }));

@@ -8,9 +8,10 @@ import ModeSelector from "@/app/components/ModeSelector";
 import Timeline from "@/app/components/Timeline";
 import ComparisonView from "@/app/components/ComparisonView";
 import EventFeed from "@/app/components/EventFeed";
+import CliHistory from "@/app/components/CliHistory";
 
 export default function Home() {
-  const { requestHistory, requestSimulation, requestReplay } = useWebSocket();
+  const { requestHistory, requestSimulation, requestReplay, requestCliHistory } = useWebSocket();
   const { mode, graphData } = useSystemStore();
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -25,15 +26,17 @@ export default function Home() {
         <span className="text-xs text-gray-600">/ real-time OS digital twin</span>
       </header>
 
-      {/* Stats */}
-      <StatsBar />
+      {/* Stats (hidden in CLI mode to maximise space) */}
+      {mode !== "cli" && <StatsBar />}
 
       {/* Mode selector */}
       <ModeSelector onSimulate={requestSimulation} />
 
       {/* Main canvas */}
       <div className="flex flex-1 overflow-hidden" ref={containerRef}>
-        {mode === "comparison" ? (
+        {mode === "cli" ? (
+          <CliHistory onLoad={requestCliHistory} />
+        ) : mode === "comparison" ? (
           <ComparisonView onSimulate={requestSimulation} />
         ) : (
           <>

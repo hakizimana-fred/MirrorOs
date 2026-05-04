@@ -7,6 +7,7 @@ const MODES: { id: AppMode; label: string; icon: string }[] = [
   { id: "history", label: "History", icon: "⟲" },
   { id: "simulation", label: "Simulate", icon: "⬡" },
   { id: "comparison", label: "Compare", icon: "⊞" },
+  { id: "cli", label: "CLI History", icon: "⌘" },
 ];
 
 const OS_OPTIONS: { id: OSType; label: string }[] = [

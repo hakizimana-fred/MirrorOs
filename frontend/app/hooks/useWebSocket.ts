@@ -53,6 +53,8 @@ export function useWebSocket() {
       store.setReplayFrames(msg.frames as Parameters<typeof store.setReplayFrames>[0]);
     } else if (type === "FS_SCAN") {
       store.setFsScan(msg.files as Parameters<typeof store.setFsScan>[0]);
+    } else if (type === "CLI_HISTORY") {
+      store.setCliData(msg as Parameters<typeof store.setCliData>[0]);
     }
   }
 
@@ -78,6 +80,11 @@ export function useWebSocket() {
     send({ type: "SCAN_FS", path });
   }, [send]);
 
+  const requestCliHistory = useCallback(() => {
+    store.setCliLoading(true);
+    send({ type: "GET_CLI_HISTORY" });
+  }, [send, store]);
+
   useEffect(() => {
     connect();
     return () => {
@@ -86,5 +93,5 @@ export function useWebSocket() {
     };
   }, [connect]);
 
-  return { send, requestHistory, requestSimulation, requestReplay, requestFsScan };
+  return { send, requestHistory, requestSimulation, requestReplay, requestFsScan, requestCliHistory };
 }

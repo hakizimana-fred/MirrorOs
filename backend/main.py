@@ -12,6 +12,8 @@ from state_engine import StateEngine
 from system_monitor import process_events, system_stats
 from fs_watcher import fs_events, scan_directory
 from os_abstraction import simulate_event, get_os_profile, OSType
+from cli_history import load_history
+from history_intelligence import analyze as analyze_history
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 log = logging.getLogger(__name__)
@@ -168,6 +170,16 @@ async def handle_client_message(ws: ServerConnection, msg: dict):
         path = msg.get("path")
         files = await scan_directory(path) if path else await scan_directory()
         await ws.send(json.dumps({"type": "FS_SCAN", "files": files}))
+
+    elif mtype == "GET_CLI_HISTORY":
+        loop = asyncio.get_event_loop()
+        history = await loop.run_in_executor(None, load_history)
+        intelligence = await loop.run_in_executor(None, analyze_history, history["commands"])
+        await ws.send(json.dumps({
+            "type": "CLI_HISTORY",
+            "history": history,
+            "intelligence": intelligence,
+        }))
 
     elif mtype == "PING":
         await ws.send(json.dumps({"type": "PONG", "timestamp": time.time()}))

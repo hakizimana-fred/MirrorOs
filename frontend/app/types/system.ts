@@ -1,6 +1,42 @@
 export type OSType = "real" | "linux" | "macos" | "windows";
 
-export type AppMode = "live" | "history" | "simulation" | "comparison";
+export type AppMode = "live" | "history" | "simulation" | "comparison" | "cli";
+
+export type CliTag = "git" | "docker" | "npm" | "python" | "system" | "dev" | "ssh" | "editor";
+
+export interface CliCommand {
+  command: string;
+  count: number;
+  last_used: number | null;
+  shells: string[];
+  tags: CliTag[];
+}
+
+export interface CliSuggestion {
+  type: "alias" | "optimization" | "warning";
+  command: string;
+  suggestion: string;
+  reason: string;
+  priority: number;
+}
+
+export interface CliHistory {
+  commands: CliCommand[];
+  shells_found: string[];
+  total_invocations: number;
+  unique_commands: number;
+  loaded_at: number;
+}
+
+export interface CliIntelligence {
+  suggestions: CliSuggestion[];
+  top_commands: CliCommand[];
+  tag_distribution: Record<string, number>;
+  variety_score: number;
+  repetition_score: number;
+  top_base_commands: Record<string, number>;
+  total_invocations: number;
+}
 
 export interface ProcessState {
   pid: number;
