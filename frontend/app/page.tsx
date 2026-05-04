@@ -10,6 +10,7 @@ import ComparisonView from "@/app/components/ComparisonView";
 import EventFeed from "@/app/components/EventFeed";
 import CliHistory from "@/app/components/CliHistory";
 import PulseBar from "@/app/components/PulseBar";
+import SystemInsights from "@/app/components/SystemInsights";
 
 export default function Home() {
   const { requestHistory, requestSimulation, requestReplay, requestCliHistory } = useWebSocket();
@@ -32,6 +33,9 @@ export default function Home() {
 
       {/* Mode selector */}
       <ModeSelector onSimulate={requestSimulation} />
+
+      {/* Agent insights strip */}
+      {mode !== "cli" && <SystemInsights />}
 
       {/* Main canvas */}
       <div className="flex flex-1 overflow-hidden" ref={containerRef}>

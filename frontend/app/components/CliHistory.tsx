@@ -203,13 +203,29 @@ function IntelligencePanel() {
                   </code>
                   <p className="text-[10px] text-gray-500 mt-1">{s.reason}</p>
                 </div>
-                <button
-                  onClick={() => copySuggestion(s.suggestion)}
-                  className="shrink-0 text-gray-600 hover:text-gray-300 text-xs mt-0.5 transition-colors"
-                  title="Copy"
-                >
-                  {copiedSuggestion === s.suggestion ? "✓" : "⎘"}
-                </button>
+                {/* Action buttons */}
+                <div className="flex flex-col gap-1 shrink-0">
+                  <button
+                    onClick={() => copySuggestion(s.suggestion)}
+                    className="text-gray-600 hover:text-gray-200 text-[10px] px-1.5 py-0.5 border border-gray-700 hover:border-gray-500 rounded transition-colors"
+                    title="Copy to clipboard"
+                  >
+                    {copiedSuggestion === s.suggestion ? "✓ copied" : "⎘ copy"}
+                  </button>
+                  {s.type === "alias" && (
+                    <button
+                      onClick={() => {
+                        const line = `\n${s.suggestion}`;
+                        navigator.clipboard.writeText(line).then(() => setCopiedSuggestion(s.suggestion + "__rc"));
+                        setTimeout(() => setCopiedSuggestion(null), 1800);
+                      }}
+                      className="text-indigo-500 hover:text-indigo-300 text-[10px] px-1.5 py-0.5 border border-indigo-900 hover:border-indigo-700 rounded transition-colors"
+                      title="Copy as shell config line (paste into .zshrc / .bashrc)"
+                    >
+                      {copiedSuggestion === s.suggestion + "__rc" ? "✓ ready" : "+ .zshrc"}
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           ))}
