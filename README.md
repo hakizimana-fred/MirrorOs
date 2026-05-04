@@ -23,15 +23,21 @@ These are the questions that matter when you're debugging a misbehaving process,
 
 ## Screenshots
 
-### CLI History Intelligence
-![CLI History tab showing command frequency, tag filtering, and alias suggestions](./cli.png)
+<p align="center">
+  <img src="./cli.png" alt="CLI History Intelligence tab" width="100%" />
+</p>
+<p align="center">
+  <em>CLI History tab — 3,900+ unique commands parsed from bash and zsh, with frequency ranking, tag filtering, last-used timestamps, and an intelligence sidebar surfacing alias candidates and anti-patterns with one-click copy.</em>
+</p>
 
-*3,900+ unique commands parsed from bash and zsh history. Frequency ranking, tag-based filtering, last-used timestamps, and an intelligence sidebar that surfaces alias candidates and anti-patterns with one-click copy.*
+<br/>
 
-### Cross-OS Comparison Mode
-![Split-screen comparison of real Linux system vs simulated Windows environment](./compare.png)
-
-*The same process and file activity, rendered simultaneously as Linux (left) and Windows (right). Path separators, drive letters, home directory conventions, and executable suffixes are all transformed by the simulation layer.*
+<p align="center">
+  <img src="./compare.png" alt="Cross-OS Comparison Mode" width="100%" />
+</p>
+<p align="center">
+  <em>Comparison Mode — the same live process and file activity rendered simultaneously as Linux (left) and simulated Windows (right). Path separators, drive letters, home directory conventions, and executable suffixes are all transformed by the simulation layer.</em>
+</p>
 
 ---
 
