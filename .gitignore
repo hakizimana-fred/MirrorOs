@@ -1,0 +1,14 @@
+# Python
+backend/.venv/
+backend/__pycache__/
+backend/*.pyc
+backend/events.db
+backend/events.db-journal
+
+# Next.js
+frontend/.next/
+frontend/node_modules/
+frontend/.git/
+
+# OS
+.DS_Store
